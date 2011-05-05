@@ -11,14 +11,14 @@ confs = [
          {body: get_body_html(1), file: "test"},
          {body: get_body_html(1), file: "qq_m_90_01"},
          {body: get_body_html(2), file: "qq_f_90_01"},
-         {body: get_body_html(3), file: "qq_f_90_01"},
+         {body: get_body_html(3), file: "qq_m_80_01"},
          {body: get_body_html(4), file: "qq_f_90_01"},
-         {body: get_body_html(5), file: "qq_f_90_01"},
+         {body: get_body_html(5), file: "qq_f_80_01"},
          {body: get_body_html(1), file: "m_m_90_01"},
          {body: get_body_html(2), file: "m_f_90_01"},
-         {body: get_body_html(3), file: "m_f_90_01"},
+         {body: get_body_html(3), file: "m_m_80_01"},
          {body: get_body_html(4), file: "m_f_90_01"},
-         {body: get_body_html(5), file: "m_f_90_01"},
+         {body: get_body_html(5), file: "m_f_80_01"},
 ]
 
 conf = confs[ARGV[0].to_i]
@@ -40,7 +40,7 @@ file.each_line do |line|
      send_mail(email_r, "25788518@qq.com", subject_r, body_txt, body_html)
      sleep 1
      send_mail(email_r, "siyang1982@gmail.com", subject_r, body_txt, body_html)
-     sleep 10
+     sleep 60
    end
    i += 1
  end
