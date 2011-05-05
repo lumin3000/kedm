@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
-require 'mail'
+require "logger"
 
+LOG_PATH = "log/"
+MAIL_PATH = "mail/"
+ADDRESS_PATH = "data/"
+
+### log ###
+def log(v, name)
+  l = Logger.new("#{LOG_PATH}/log_#{name}.txt")
+  l.info v
+end
+
+### random generator ###
 def r_name
   %w[commic desktop admin user].sample
 end
@@ -23,12 +34,23 @@ def email_r
 end
 
 def subject_r
-  "通往2012的船票 "+r_b
+  ["通往2012的船票",
+   "登岛通知书",
+   "2012快来了，你有船票么？",
+   "来自宽岛的邀请o(∩_∩)o",
+  ].sample
 end
 
-list_file = "list.txt"
-log_file = "log.txt"
+### mail content ###
+def get_body_txt(i = '')
+  File.read("#{MAIL_PATH}body#{i}.txt")
+end
 
+def get_body_html(i = '')
+  File.read("#{MAIL_PATH}body#{i}.html")
+end
+
+### send mail ###
 def send_mail(email_from, email_to, email_subject, body_txt, body_html)
   mail = Mail.new do
     from email_from
@@ -38,27 +60,11 @@ def send_mail(email_from, email_to, email_subject, body_txt, body_html)
       content_type 'text/plain; charset=UTF-8'
       body body_txt
     end
-    html_part do
+    body_html && html_part do
       content_type 'text/html; charset=UTF-8'
       body body_html
     end
   end
-  # mail.to_s
   mail.delivery_method :sendmail
   mail.deliver!
 end
-
-def send_list
-end
-
-body_txt = File.read('body.txt')
-body_html = File.read('body.html')
-log = File.open(log_file, "a") 
-file = File.open(list_file, "r")
-file.each_line do |line|
-  send_mail(email_r, line.chomp, subject_r, body_txt, body_html)
-  log.puts line
-  print line
-  sleep 1
-end
-log.close
