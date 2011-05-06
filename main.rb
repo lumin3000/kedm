@@ -33,14 +33,14 @@ file = File.open(ADDRESS_PATH + file_name + ".txt", "r")
 file.each_line do |line|
  if (line =~ /.+@.+\..+/ && (line =~ /-/) != 0)
    line = line.chomp
-   send_mail(email_r, line, subject_r, body_txt, body_html)
+   send_mail(email_r, line, subject_r(line.sub(/@.+/, '')), body_txt, body_html)
    log i.to_s + " : " + ARGV.to_s + " : " + line, log_name
    sleep 6
    if i%600 == 0
      if file_name =~ /qq/
-       send_mail(email_r, "25788518@qq.com", file_name + subject_r , body_txt, body_html)
+       send_mail(email_r, "25788518@qq.com", subject_r(file_name + line.sub(/@.+/, '')) , body_txt, body_html)
      else
-       send_mail(email_r, "siyang1982@gmail.com", subject_r, body_txt, body_html)
+       send_mail(email_r, "siyang1982@gmail.com", subject_r(file_name + line.sub(/@.+/, '')), body_txt, body_html)
      end
      sleep 60
    end
