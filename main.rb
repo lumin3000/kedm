@@ -37,9 +37,11 @@ file.each_line do |line|
    log i.to_s + " : " + ARGV.to_s + " : " + line, log_name
    sleep 6
    if i%600 == 0
-     send_mail(email_r, "25788518@qq.com", subject_r, body_txt, body_html)
-     sleep 1
-     send_mail(email_r, "siyang1982@gmail.com", subject_r, body_txt, body_html)
+     if file_name =~ /qq/
+       send_mail(email_r, "25788518@qq.com", file_name + subject_r , body_txt, body_html)
+     else
+       send_mail(email_r, "siyang1982@gmail.com", subject_r, body_txt, body_html)
+     end
      sleep 60
    end
    i += 1
