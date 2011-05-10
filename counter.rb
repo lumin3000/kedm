@@ -11,8 +11,8 @@ def mail_st
   i = 0
   puts "--- 昨日邮件统计"
   file.each_line do |line|
-    break if i>14
-    puts line if i>=6
+    break if i>7
+    puts line if i>=7
     i += 1
   end
   file.close
@@ -24,7 +24,7 @@ def invitation_st
   file = File.open("log/invitation_refer_#{$date}.log", 'r')
   puts "--- 邀请页统计"
   file.each_line do |line|
-    arr << line.split(" : ")[2]
+    arr << line.split(" : ")[2].chomp
   end
   file.close
   group(arr).each do |key, value|
@@ -38,11 +38,16 @@ def register_st
   file = File.open("log/register_refer_#{$date}.log", 'r')
   puts "--- 注册统计"
   file.each_line do |line|
-    arr << line.split(" : ")[5]
+    line.split(" : ")[5] && (arr << line.split(" : ")[5].chomp)
   end
   file.close
-  group(arr).each do |key, value|
-    $hash[key] && (puts $hash[key]+" : "+value.to_s)
+  h = group(arr)
+  # $hash.each do |key, value|
+  #   puts key
+  #   puts value + " : " + h[key.to_sym].to_s
+  # end
+  h.each do |key, value|
+    $hash[key] && puts($hash[key].to_s + " : " + value.to_s)
   end
   puts "------------------"
 end
@@ -60,14 +65,14 @@ $hash = {
   "je0k9ljoomh87cg000i" => "sheyinglover", # 摄影运营 陈娟
 }
 puts "------ #{$date}统计 ------"
-system "scp root@117.79.233.23:/root/log/mail_#{$date}.txt log"
+# system "scp root@117.79.233.23:/root/log/mail_#{$date}.txt log"
 mail_st
 
-`scp huang@kuandao.com:/var/kuan/current/log/invitation_refer.log log`
+# `scp huang@kuandao.com:/var/kuan/current/log/invitation_refer.log log`
 system "egrep \"^#{$date2}\" log/invitation_refer.log > log/invitation_refer_#{$date}.log"
 invitation_st
 
-`scp huang@kuandao.com:/var/kuan/current/log/register_refer.log log`
+# `scp huang@kuandao.com:/var/kuan/current/log/register_refer.log log`
 system "egrep \"^#{$date2}\" log/register_refer.log > log/register_refer_#{$date}.log"
 register_st
 puts "------ END  ------"
