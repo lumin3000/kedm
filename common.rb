@@ -31,7 +31,7 @@ end
 
 def email_r
   r_name+r_s+"@"+r_domain
-  "宽岛 <webmaster@mail.kuankuan.com>"
+  "宽岛 <webmaster@mail.kuandao.com>"
 end
 
 def subject_r(str)
