@@ -7,7 +7,7 @@ ADDRESS_PATH = "data/"
 
 ### log ###
 def log(v, name)
-  l = Logger.new("#{LOG_PATH}/log_#{name}.txt")
+  l = Logger.new("#{LOG_PATH}log_#{name}.txt")
   l.info v
 end
 
@@ -27,11 +27,11 @@ end
 
 def r_domain
   %w[m mail email i ma mi ml].sample+'.'+%w[kuandao].sample+'.'+%w[cn com cc].sample
-  "m.kuandao.com"
 end
 
 def email_r
   r_name+r_s+"@"+r_domain
+  "宽岛 <webmaster@mail.kuankuan.com>"
 end
 
 def subject_r(str)
@@ -39,7 +39,6 @@ def subject_r(str)
    "邀请#{str}登岛通知书",
    "2012快来了，#{str}，你有船票么？",
    "#{str}你好，这是来自宽岛的邀请o(∩_∩)o",
-   "邀请#{str}，发现真实的自己",
   ].sample
 end
 
@@ -69,4 +68,12 @@ def send_mail(email_from, email_to, email_subject, body_txt, body_html)
   end
   mail.delivery_method :sendmail
   mail.deliver!
+end
+
+
+def op_line(line)
+end
+
+def notice(msg)
+  send_mail(email_r, "25788518@qq.com", "kuandao邮件提醒" , "", msg)
 end

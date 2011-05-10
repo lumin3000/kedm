@@ -54,12 +54,16 @@ $hash = {
   "je12bbjoomh7vrg001e" => "tongren", # 腐 （腐 童年动漫）
   "je12ekjoomh8ch00005" => "leng", # 笑话 （冷笑话 mars）
   "je12hijoomh8dbg000p" => "chongwu", # 动物 （有意思的小生物 猫）
+  "jdpai1joomh0f3g000n" => "yingshi", # 运营主管 高小滢
+  "je3csejoomh357g000v" => "yvjicomic", # 动漫运营 程雨婧
+  "jdu6s8joomhda9g002c" => "shishangwozuiai", # 时尚运营 丁怡
+  "je0k9ljoomh87cg000i" => "sheyinglover", # 摄影运营 陈娟
 }
 puts "------ #{$date}统计 ------"
-#system "scp root@117.79.233.23:/root/log/mail_#{$date}.txt log"
+system "scp root@117.79.233.23:/root/log/mail_#{$date}.txt log"
 mail_st
 
-#`scp huang@kuandao.com:/var/kuan/current/log/invitation_refer.log log`
+`scp huang@kuandao.com:/var/kuan/current/log/invitation_refer.log log`
 system "egrep \"^#{$date2}\" log/invitation_refer.log > log/invitation_refer_#{$date}.log"
 invitation_st
 
