@@ -22,7 +22,7 @@ def r_s
 end
 
 def r_b
-  %w[:) :P :D :( :O :-X B-) -_- >_< ^_^ T_T @_@ *_*].sample
+  %w[:) :P :D :( :O :-X B-) -_- >_< ^_^ T_T @_@ *_* o(∩_∩)o].sample
 end
 
 def r_domain
@@ -35,11 +35,15 @@ def email_r
 end
 
 def subject_r(str)
-  [str+"通往2012的船票",
+  t1 = %w[你好 Hello HEY HI 您好].sample
+  t2 = ["宽岛欢迎你",
+   "来自宽岛的邀请信",
    "邀请#{str}登岛通知书",
    "2012快来了，#{str}，你有船票么？",
-   "#{str}你好，这是来自宽岛的邀请o(∩_∩)o",
+   "#{str}你好，这是来自宽岛的邀请",
   ].sample
+  puts   t1 + ", " + t2 + " " + r_b
+  t1 + ", " + t2 + " " + r_b
 end
 
 ### mail content ###
@@ -68,6 +72,36 @@ def send_mail(email_from, email_to, email_subject, body_txt, body_html)
   end
   mail.delivery_method :sendmail
   mail.deliver!
+end
+
+def send_smtp(email_from, email_to, email_subject, body_txt, body_html)
+  user = %w[admin kuandao001 kuandao002 kuandao003].sample
+  Pony.options = {
+    :from => "宽岛 <#{user}@kuandao.com>", 
+    :via => :smtp, 
+    :via_options => { 
+      :address        => 'smtp.exmail.qq.com',
+      :port           => '25',
+#      :enable_starttls_auto => true,
+      :user_name      => "#{user}@kuandao.com",
+      :password       => 'kuandao!@#',
+      :authentication => :plain,
+      :domain         => 'smtp.exmail.qq.com',
+    }
+  }
+  begin
+    Pony.mail(
+            :to => email_to,
+            :subject => email_subject,
+            :body => body_txt,
+            :html_body => body_html
+            )
+    true
+  rescue
+    puts $!
+    puts user
+    false
+  end
 end
 
 
