@@ -24,7 +24,7 @@ def invitation_st
   file = File.open("log/invitation_refer_#{$date}.log", 'r')
   puts "--- 邀请页统计"
   file.each_line do |line|
-    arr << line.split(" : ")[2].chomp
+    line.split(" : ")[2] && (arr << line.split(" : ")[2].chomp)
   end
   file.close
   group(arr).each do |key, value|
@@ -77,6 +77,8 @@ $hash = {
   "je8u1bjoomh4s500003" => {uri: "huli", comment: "狐狸科的大耳朵 程雨婧"},
   "je8v2g3oomh8gl00019" => {uri: "jingzhi", comment: "精致的愿望 程雨婧"},
   "je8vdqjoomh98u00022" => {uri: "bingxiang", comment: "冰箱里的故事 程雨婧"},
+  "jebhq43oomh2l4g000a" => {uri: "pandaho", comment: "潘大吼"},
+  "jebldu3oomh4ocg0075" => {uri: "thefairylady", comment: "The Fairy Lady"},
 }
 puts "------ #{$date}统计 ------"
 system "scp root@117.79.233.23:/root/log/mail_#{$date}.txt log"
