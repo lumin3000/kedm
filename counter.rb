@@ -79,6 +79,7 @@ $hash = {
   "je8vdqjoomh98u00022" => {uri: "bingxiang", comment: "冰箱里的故事 程雨婧"},
   "jebhq43oomh2l4g000a" => {uri: "pandaho", comment: "潘大吼"},
   "jebldu3oomh4ocg0075" => {uri: "thefairylady", comment: "The Fairy Lady"},
+  "jegpjc3oomhdig0000h" => {uri: "guojia", comment: "guojia"},
 }
 puts "------ #{$date}统计 ------"
 system "scp root@117.79.233.23:/root/log/mail_#{$date}.txt log"
